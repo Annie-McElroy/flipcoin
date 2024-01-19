@@ -1,9 +1,9 @@
 // Parent component - contains props, state, and event
 // Import Coin
 // Import React
-// Props: Side (Head or Tails)
-// State: empty array for Side
-// Event to flip coin, need random between two
+// Props = coins: Side (Head or Tails) and url
+// State: side = null, number of flips, and number of heads
+// Event to flip coin, need random method to choose coin
 // Count how many times flipped and heads & tails is provided
 
 import React, { Component } from 'react';
@@ -23,7 +23,7 @@ class Flip extends Component {
                 url: `http://tinyurl.com/react-coin-tails5-jpg`
             }
         ]
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -36,9 +36,9 @@ class Flip extends Component {
     };
 
     chooseCoin() {
-        const indx = Math.floor(Math.random() * this.props.coins.length)
+        const indx = Math.floor(Math.random() * this.props.coins.length);
         return this.props.coins[indx];
-    }
+    };
 
     
     flip() {
@@ -57,16 +57,14 @@ class Flip extends Component {
                 totalFlips: curSt.totalFlips + 1,
                 heads: headsCount
             }
-        })
-    }
+        });
+    };
 
     handleClick() {
         this.flip();
-    }
+    };
     
     render() {
-        // console.log(this.state.coin.side)
-
         return (
             <section className='FlipContainer'>
                 <h1>Flip a coin!</h1>
@@ -79,9 +77,7 @@ class Flip extends Component {
                 </div>
             </section>
         )
-    }
-
-
-}
+    };
+};
 
 export default Flip;

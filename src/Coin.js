@@ -1,5 +1,4 @@
-// Takes in prop for side, displays coin only
-// API link for coin variable: https://tinyurl.com/react-coin-heads-jpg
+// Takes in prop for coin to include URL and side, displays coin only
 
 import React, { Component } from 'react';
 import './Coin.css';
