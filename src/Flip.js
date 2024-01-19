@@ -13,37 +13,47 @@ import './Coin.css';
 class Flip extends Component {
 
     static defaultProps = {
-        sides: [ 'heads', 'tail']
+        coins: [
+            {
+                side: 'heads',
+                url: `https://tinyurl.com/react-coin-heads-jpg`
+            },
+            {
+                side: 'tails',
+                url: `http://tinyurl.com/react-coin-tails5-jpg`
+            }
+        ]
     }
 
     constructor(props) {
         super(props);
         this.state = { 
-            side: 'heads',
+            coin: null,
             totalFlips: 0,
             heads: 0
         };
         this.handleClick = this.handleClick.bind(this);
     };
 
-    chooseSide() {
-        const indx = Math.floor(Math.random() * this.props.sides.length)
-        return this.props.sides[indx];
+    chooseCoin() {
+        const indx = Math.floor(Math.random() * this.props.coins.length)
+        return this.props.coins[indx];
     }
 
     
     flip() {
         // variable for new side
-        const newSide = this.chooseSide();
-        console.log(newSide)
+        const newCoin = this.chooseCoin();
+        console.log(newCoin);
+
         // setState to change state side = new side, totalFlips = current state +1, heads = count of heads variable
         this.setState(curSt => {
             // variable for count of heads = take current state of heads and +1 if new side = heads else 0
             const headsCount = curSt.heads + (
-                newSide === 'heads' ? 1 : 0
+                newCoin.side === 'heads' ? 1 : 0
             )
             return {
-                side: newSide,
+                coin: newCoin,
                 totalFlips: curSt.totalFlips + 1,
                 heads: headsCount
             }
@@ -51,18 +61,17 @@ class Flip extends Component {
     }
 
     handleClick() {
-        // this.chooseSide();
         this.flip();
     }
     
     render() {
-        // console.log(this.props.sides.length)
+        // console.log(this.state.coin.side)
 
         return (
             <section className='FlipContainer'>
                 <h1>Flip a coin!</h1>
                 <div>
-                    <Coin side={this.state.side} />
+                    {this.state.coin && <Coin coin={this.state.coin} />}
                     <button onClick={this.handleClick}>FLIP!</button>
                     <p>
                         Out of {this.state.totalFlips}, there have been {this.state.heads} heads and {this.state.totalFlips - this.state.heads} tails.
